@@ -1,8 +1,9 @@
+// DOM
 const playerScoreEl = document.getElementById('playerScore');
 const playerChoiceEL = document.getElementById('playerChoice');
 const computerScoreEl = document.getElementById('computerScore');
 const computerChoiceEL = document.getElementById('computerChoice');
-const resultTect = document.getElementById('resultText');
+const resultText = document.getElementById('resultText');
 
 const playerRock = document.getElementById('playerRock');
 const playerPaper = document.getElementById('playerPaper');
@@ -18,6 +19,8 @@ const computerSpock = document.getElementById('computerSpock');
 
 const allGameIcons = document.querySelectorAll('.far');
 
+
+// Game Logic
 const choices = {
     rock: { name: 'Rock', defeats: ['scissors', 'lizard'] },
     paper: { name: 'Paper', defeats: ['rock', 'spock'] },
@@ -26,6 +29,9 @@ const choices = {
     spock: { name: 'Spock', defeats: ['scissors', 'rock'] },
   };
 
+// Global Variables
+let playerScoreNumber = 0
+let computerScoreNumber = 0;
 let computerChoice = '';
 
 // Reset all 'selected' icons
@@ -52,17 +58,41 @@ function computerRandomChoice() {
     }
 }
 
+// Check result, incrase scores, update resultText
+function updateScore(playerChoice) {
+    //Check functionality of params: console.log(playerChoice, computerChoice)
+    //Logic of game
+    if (playerChoice === computerChoice) {
+        resultText.textContent = 'It\'s a tie.' 
+    } else {
+        const choice = choices[playerChoice]; //grab the array's object of the corresponding object
+        console.log(choice.defeats.indexOf(computerChoice));
+        if (choice.defeats.indexOf(computerChoice) > -1) {
+            resultText.textContent = 'You Won!';
+            playerScoreNumber++;
+            playerScoreEl.textContent = playerScoreNumber; //Update the dom
+        } else {
+            resultText.textContent = 'You Lost!'
+            computerScoreNumber++;
+            computerScoreEl.textContent = computerScoreNumber;
+        }
+    }
+
+
+}
+
 // Call function to process the turn
-function checkResult() {
+function checkResult(playerChoice) {
     resetSelected();
     computerRandomChoice();
     displayComputerChoice();
+    updateScore(playerChoice)
     
 }
 
 // Passing player selection value and styling icons
 function select(playerChoice) {
-    checkResult() //check the result
+    checkResult(playerChoice) //check the result
     // Add 'selected' styling & playerChoice
     switch(playerChoice) {
         case 'rock':
@@ -119,4 +149,4 @@ function displayComputerChoice() {
 }
 
 // Event Listeners
-// See in the html onclick property!!!
+// See in the html onclick=('') property!!!
