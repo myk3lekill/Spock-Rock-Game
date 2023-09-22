@@ -76,6 +76,8 @@ function updateScore(playerChoice) {
     //Logic of game
     if (playerChoice === computerChoice) {
         resultText.textContent = 'It\'s a tie.' 
+        stopConfetti();
+        removeConfetti();
     } else {
         const choice = choices[playerChoice]; //grab the array's object of the corresponding object
         console.log(choice.defeats.indexOf(computerChoice));
@@ -88,10 +90,10 @@ function updateScore(playerChoice) {
             resultText.textContent = 'You Lost!'
             computerScoreNumber++;
             computerScoreEl.textContent = computerScoreNumber;
+            stopConfetti();
+            removeConfetti();
         }
     }
-
-
 }
 
 // Call function to process the turn
