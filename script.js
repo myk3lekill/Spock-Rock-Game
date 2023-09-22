@@ -41,6 +41,18 @@ function resetSelected() {
  });
 }
 
+// Reset Score & playerChoice & computerChoice
+function resetAll() {
+    playerScoreNumber = 0;
+    computerScoreNumber = 0;
+    playerScoreEl.textContent = playerScoreNumber;
+    computerScoreEl.textContent = computerScoreNumber;
+    playerChoiceEL.textContent = '';
+    computerChoiceEL.textContent = '';
+    resultText.textContent = '';
+    resetSelected(); //reset icons
+}
+
 // Random computer choice
 function computerRandomChoice() {
     const computerChoiceNumber = Math.random();
@@ -149,4 +161,7 @@ function displayComputerChoice() {
 }
 
 // Event Listeners
-// See in the html onclick=('') property!!!
+// See in the html onclick="function('title')" property!!!
+
+// On Load, set initial values
+resetAll() 
