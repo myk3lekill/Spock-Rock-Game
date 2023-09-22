@@ -1,5 +1,11 @@
 // Module ES6
-import { startConfetti, stopConfetti, removeConfetti } from "./confetti.js";
+//import { startConfetti, stopConfetti, removeConfetti } from "./confetti.js";
+
+// WHERE IS NEEDED: Dynamic Module Importing 
+// import("./modules/myModule.js").then((module) => {
+//     // Do something with the module.
+//   });
+
 
 // DOM
 const playerScoreEl = document.getElementById('playerScore');
@@ -79,22 +85,25 @@ function updateScore(playerChoice) {
     //Logic of game
     if (playerChoice === computerChoice) {
         resultText.textContent = 'It\'s a tie.' 
-        stopConfetti();
-        removeConfetti();
+        //Dynamic Module Importing:
+        import('./confetti.js').then((module) => {module.stopConfetti()});
+        import('./confetti.js').then((module) => {module.removeConfetti()});
     } else {
         const choice = choices[playerChoice]; //grab the array's object of the corresponding object
         console.log(choice.defeats.indexOf(computerChoice));
         if (choice.defeats.indexOf(computerChoice) > -1) {
             resultText.textContent = 'You Won!';
-            startConfetti();
+            //Dynamic Module Importing:
+            import('./confetti.js').then((module) => {module.startConfetti()})
             playerScoreNumber++;
             playerScoreEl.textContent = playerScoreNumber; //Update the dom
         } else {
             resultText.textContent = 'You Lost!'
             computerScoreNumber++;
             computerScoreEl.textContent = computerScoreNumber;
-            stopConfetti();
-            removeConfetti();
+            //Dynamic Module Importing:
+            import('./confetti.js').then((module) => {module.stopConfetti()});
+            import('./confetti.js').then((module) => {module.removeConfetti()});
         }
     }
 }
